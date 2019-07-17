@@ -1,2 +1,2 @@
 # MonitorCalciumSignals
-A Plugin to image calium activity in worms
+An ImageJ plugin to image Calcium (Ca2+) activity in worms
