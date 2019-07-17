@@ -245,8 +245,10 @@ public class RegisterImagesPanel<I extends IntegerType<I>, T extends NumericType
 
                             System.out.println("start calculation");
                             @SuppressWarnings("unchecked")
-                            Img<UnsignedShortType> image = (Img<UnsignedShortType>)
-                                    new ImgOpener().openImgs("/home/manan/Desktop/08_SampleData/02_Images/06_Raghav_Calcium/GCaMP6s_Larva/tifs/CM02/390.tif").get(0);
+                            Img<UnsignedShortType> source = (Img<UnsignedShortType>)
+                                    new ImgOpener().openImgs((String) imageOneComboBox.getSelectedItem()).get(0);
+                            Img<UnsignedShortType> target = (Img<UnsignedShortType>)
+                                    new ImgOpener().openImgs((String) imageTwoComboBox.getSelectedItem()).get(0);
                             AffineTransform3D affineTransform3D = new AffineTransform3D();
                             affineTransform3D.set(affineTransform.get(0, 0), 0, 0);
                             affineTransform3D.set(affineTransform.get(0, 1), 0, 1);
@@ -263,12 +265,12 @@ public class RegisterImagesPanel<I extends IntegerType<I>, T extends NumericType
                             affineTransform3D.set(affineTransform.get(2, 2), 2, 2);
                             affineTransform3D.set(affineTransform.get(2, 3), 2, 3);
                             RealRandomAccessible<UnsignedShortType>
-                                    interpolated = Views.interpolate(Views.extendZero(image), new NLinearInterpolatorFactory<>());
+                                    interpolated = Views.interpolate(Views.extendZero(source), new NLinearInterpolatorFactory<>());
                             RealRandomAccessible<UnsignedShortType>
                                     transformed = RealViews.affine(interpolated, affineTransform3D);
                             RandomAccessibleInterval<UnsignedShortType>
-                                    rai = Views.interval(Views.raster(transformed), image);
-                            ImageJFunctions.show(rai).setDisplayRange(0, 1200);
+                                    rai = Views.interval(Views.raster(transformed), target);
+                            //ImageJFunctions.show(rai).setDisplayRange(0, 1200);
                             IJ.save(ImageJFunctions.wrap(rai, "transformed"), "/home/manan/Desktop/imgSourceTransformed2.tif");
                             return null;
 
