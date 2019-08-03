@@ -271,7 +271,11 @@ public class RegisterImagesPanel<I extends IntegerType<I>, T extends NumericType
                             RandomAccessibleInterval<UnsignedShortType>
                                     rai = Views.interval(Views.raster(transformed), target);
                             //ImageJFunctions.show(rai).setDisplayRange(0, 1200);
-                            IJ.save(ImageJFunctions.wrap(rai, "transformed"), "/home/manan/Desktop/imgSourceTransformed2.tif");
+
+
+                            //IJ.save(ImageJFunctions.wrap(rai, "transformed"), "/home/manan/Desktop/08_SampleData/02_Images/06_Raghav_Calcium/GCaMP6s_Larva/tifsflipped/CM02/imgTransformed.tif");
+                            IJ.save(ImageJFunctions.wrap(rai, "transformed"), "/home/manan/Desktop/imgTransformed.tif");
+                            System.out.println("done calculation");
                             return null;
 
 
@@ -305,7 +309,9 @@ public class RegisterImagesPanel<I extends IntegerType<I>, T extends NumericType
 
             int row = 0;
             while (l != null) {
-                String[] tokens = l.split("\t");
+                // Change delimiter accordingly
+                //String[] tokens = l.split("\t");
+                String[] tokens = l.split(",");
                 if (imageDimensionalityCombobox.getSelectedIndex() == 0) {
                     affineTransform.set(row, 0, Float.parseFloat(tokens[0]));
                     affineTransform.set(row, 1, Float.parseFloat(tokens[1]));
